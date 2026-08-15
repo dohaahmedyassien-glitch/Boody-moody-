@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For Boody</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;
+font-family:Arial,sans-serif;background:#f8e9ee;color:#56313c;overflow:hidden}
+.card{width:min(92vw,430px);padding:45px 25px;background:#fff;border-radius:26px;
+box-shadow:0 15px 45px rgba(80,35,50,.15);text-align:center}
+h1{font-size:25px;line-height:1.4;margin:0 0 14px}
+p{font-size:15px;color:#8a6571;margin:0 0 28px}
+.buttons{position:relative;height:120px;width:100%}
+button{border:0;border-radius:30px;padding:13px 30px;font-size:16px;font-weight:bold;cursor:pointer}
+#yes{background:#c94d70;color:white;margin-right:12px}
+#no{background:#eee3e7;color:#765965;position:absolute;left:58%;top:0}
+.progress{font-size:13px;color:#aa8792}
+</style>
+</head>
+<body>
+<div class="card">
+<h1 id="question">Boody, will you always forgive me?</h1>
+<p id="sub">Please choose.</p>
+<div class="buttons" id="buttons">
+<button id="yes">YES</button>
+<button id="no">NO</button>
+</div>
+<div class="progress" id="progress">1 / 3</div>
+</div>
+
+<script>
+const questions=[
+["Boody, will you always forgive me?","Please choose."],
+["Boody Moody, do you still love me?","Be honest with me."],
+["Can Doctor Boody teach me?","I promise I'll listen."]
+];
+let i=0;
+const q=document.getElementById("question");
+const s=document.getElementById("sub");
+const yes=document.getElementById("yes");
+const no=document.getElementById("no");
+const area=document.getElementById("buttons");
+const progress=document.getElementById("progress");
+
+function runAway(e){
+e.preventDefault();
+const a=area.getBoundingClientRect(),b=no.getBoundingClientRect();
+no.style.left=Math.random()*Math.max(1,a.width-b.width)+"px";
+no.style.top=Math.random()*Math.max(1,a.height-b.height)+"px";
+}
+["mouseenter","pointerdown","touchstart"].forEach(e=>no.addEventListener(e,runAway,{passive:false}));
+
+yes.onclick=function(){
+i++;
+if(i<questions.length){
+q.textContent=questions[i][0];
+s.textContent=questions[i][1];
+progress.textContent=(i+1)+" / 3";
+no.style.left="58%"; no.style.top="0";
+}else{
+q.textContent="I knew you would say yes.";
+s.textContent="Thank you, Boody.";
+area.innerHTML="";
+progress.textContent="";
+}
+};
+</script>
+</body>
+</html>
